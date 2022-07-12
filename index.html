@@ -10,13 +10,9 @@
 
     <div id="app">
         <h1>{{ titulo }}</h1>
-        <div v-if="usuario.id == 1">
-            Id: {{ usuario.id }},<br>
-            Nome: {{ usuario.nome }},<br>
-            Profissao: {{ usuario.profissao }}
-        </div>
-        <div v-else>Nenhum usuário com o ID = {{ usuario.id }}</div>
-        <button v-show="teste">texto</button>
+        <ul>
+            <li v-for="(item, index) in linguagens">{{ index }} - {{ item.nome }}</li>
+        </ul>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -25,13 +21,14 @@
         var app = new Vue({
             el: "#app",
             data: {
-                teste: false,
                 titulo: "Aula 01 - Vuejs do jeito ninja",
-                usuario: {
-                    id: 1,
-                    nome: "Jon Snow",
-                    profissao: "Ator"
-                }
+                linguagens: [
+                    { nome: "Javascript" },
+                    { nome: "PHP" },
+                    { nome: "C#" },
+                    { nome: "Java" },
+                    { nome: "Python" }
+                ]
             }
         });
     </script>
