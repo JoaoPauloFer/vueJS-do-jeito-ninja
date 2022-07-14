@@ -10,80 +10,59 @@
 <body>
 
     <div id="app">
-      <navbar></navbar>
-      <br><br>
-      <menu-bar :items="[{ label: 'A empresa' }, { label: 'Serviços' }]"></menu-bar>
+
+      <div class="container">
+        <card>
+          <h5 slot="title" class="card-title">Card title</h5>
+
+          <template slot="text" >
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
+          </template>
+          <a slot="action" href="#" class="btn btn-primary">Go somewhere</a>
+        </card>
+
+        <card>
+          <h5 slot="title" class="card-title">Card title</h5>
+          <template slot="text">
+            <p  class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi beatae quasi, possimus quia fuga, voluptates officiis vitae, facere dolorem commodi repellendus aliquam. Deserunt laudantium eligendi beatae molestiae voluptas est quia?</p>
+            <p  class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi beatae quasi, possimus quia fuga, voluptates officiis vitae, facere dolorem commodi repellendus aliquam. Deserunt laudantium eligendi beatae molestiae voluptas est quia?</p>
+          </template>
+          <a slot="action"  href="#" class="btn btn-primary">Leia Mais</a>
+        </card>
+
+      </div>
     </div>
 
-    <template id="nav">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado"  aria-expanded="false" aria-label="Alterna navegação">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-      <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
-        <menu-bar :items="topNav" @emit-click="getLink"
-        ></menu-bar>
-
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-        </form>
+    <template id="card">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="http://via.placeholder.com/286x180" alt="Card image cap">
+        <div class="card-body">
+          <slot name="title"></slot>
+          <slot name="text"></slot>
+          <slot name="action"></slot>
+        </div>
       </div>
-    </nav>
-    </template>
-
-    <template id="menu">
-      <ul class="navbar-nav mr-auto">
-        <li v-for="(item, index) in items"
-            class="nav-item active">
-          <a  @click.stop.prevent="emitClick(index)" 
-              class="nav-link" href="#"> {{ item.label }}</a>
-        </li>
-      </ul>
     </template>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
     <script>
-      Vue.component('navbar', {
-        template: '#nav',
-        data() {
-          return {
-            topNav: [{label: 'Home'}, {label: 'Link'}, {label: 'Disabled'}]
-          }
+        Vue.component('card', {
+          template: '#card',
+          data() {
+            return {
+              title: ''
+            }
+          },
+        })
+
+      var app = new Vue({
+        el: "#app",
+        data: {
+          titulo: "Vuejs do jeito ninja",
         },
-        methods: {
-          getLink(index) {
-            alert(this.topNav[index].label);
-          }
-        }
-      })
-      Vue.component('menu-bar', {
-            template: "#menu",
-            props: {
-              items: {
-                type: Array,
-                required: true
-              }
-             
-            }, methods: {
-
-                emitClick(index) {
-                  this.$emit('emit-click', index);
-                }
-              },
-        });
-
-        var app = new Vue({
-            el: "#app",
-
-            data: {
-                titulo: "Vuejs do jeito ninja",
-
-            },
-        });
+      });
     </script>
 
 </body>
