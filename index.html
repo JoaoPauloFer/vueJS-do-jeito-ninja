@@ -9,61 +9,54 @@
 </head>
 <body>
 
-    <div id="app">
-
-      <div class="container">
-        <card>
-          <h5 slot="title" class="card-title">Card title</h5>
-
-          <template slot="text" >
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
-          </template>
-          <a slot="action" href="#" class="btn btn-primary">Go somewhere</a>
-        </card>
-
-        <card>
-          <h5 slot="title" class="card-title">Card title</h5>
-          <template slot="text">
-            <p  class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi beatae quasi, possimus quia fuga, voluptates officiis vitae, facere dolorem commodi repellendus aliquam. Deserunt laudantium eligendi beatae molestiae voluptas est quia?</p>
-            <p  class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi beatae quasi, possimus quia fuga, voluptates officiis vitae, facere dolorem commodi repellendus aliquam. Deserunt laudantium eligendi beatae molestiae voluptas est quia?</p>
-          </template>
-          <a slot="action"  href="#" class="btn btn-primary">Leia Mais</a>
-        </card>
-
-      </div>
+  <div id="app">
+    <br><br>
+    <div class="container">
+      <h1> {{ titulo }} </h1>
+      <button @click.stop.prevent="getUsers" class="btn btn-success">GET USERS</button>
     </div>
+  </div>
 
-    <template id="card">
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="http://via.placeholder.com/286x180" alt="Card image cap">
-        <div class="card-body">
-          <slot name="title"></slot>
-          <slot name="text"></slot>
-          <slot name="action"></slot>
-        </div>
-      </div>
-    </template>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
 
-    <script>
-        Vue.component('card', {
-          template: '#card',
-          data() {
-            return {
-              title: ''
-            }
-          },
-        })
+    var mixin = {
 
-      var app = new Vue({
-        el: "#app",
-        data: {
-          titulo: "Vuejs do jeito ninja",
-        },
-      });
-    </script>
+      created() {
+        console.log('Hello vue from mixin')
+      },
+
+      methods: {
+        getUsers() {
+          // rotina de programação
+          // localiza usuário
+          console.log('get userssss')
+        }
+      }
+    }
+
+    var app = new Vue({
+      el: "#app",
+      data: {
+        titulo: "Vuejs do jeito ninja",
+      },
+
+      mixins : [mixin],
+
+      created() { 
+        console.log('Hello vue from vue')
+       },
+
+      methods: {
+        getUsers() {
+          // rotina de programação
+          // localiza usuário
+          console.log('get users')
+        }
+      },
+    });
+  </script>
 
 </body>
 </html>
