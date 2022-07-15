@@ -14,24 +14,41 @@
     <div class="container">
       <h1> {{ titulo }} </h1>
       <button @click.stop.prevent="getUsers" class="btn btn-success">GET USERS</button>
+      
+      <div v-if="response.status == 'error'" class="alert alert-danger">{{ response.msg }}</div>
+
+      <div v-if="loader.users" class="">Carregando usuários</div>
+
+      <ul>
+        <li v-for="user in users">{{ user.name }}</li>
+      </ul>
+
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
 
   <script>
 
     var mixin = {
 
-      created() {
-        console.log('Hello vue from mixin')
-      },
-
       methods: {
         getUsers() {
-          // rotina de programação
-          // localiza usuário
-          console.log('get userssss')
+
+          this.loader.users = true;
+
+          var url = 'http://jsonplaceholder.typicode.com/users'
+          this.$http.get(url)
+            .then(function(response){
+              this.users = response.body;
+            }, function(error) {
+              this.response.status = "error";
+              console.log(error);
+            })
+            .finally(function() {
+              this.loader.users = false
+            });
         }
       }
     }
@@ -40,21 +57,18 @@
       el: "#app",
       data: {
         titulo: "Vuejs do jeito ninja",
-      },
-
-      mixins : [mixin],
-
-      created() { 
-        console.log('Hello vue from vue')
-       },
-
-      methods: {
-        getUsers() {
-          // rotina de programação
-          // localiza usuário
-          console.log('get users')
+        users:[],
+        loader: {
+          users:false,
+        },
+        response: {
+          msg: "Erro ao conectar",
+          status: ""
         }
       },
+      
+      mixins : [mixin],
+
     });
   </script>
 
