@@ -15,8 +15,8 @@
       <h1>{{ titulo }}</h1>
 
       <ul>
-        <li><router-link to="/transformers">Transformers</router-link></li>
-        <li><router-link to="/game-of-thrones">Game of Thrones</router-link></li>
+        <li><router-link :to="{ name: 'transformers' }">Transformers</router-link></li>
+        <li><router-link :to="{ name: 'gameOfThrones' }">Game of Thrones</router-link></li>
       </ul>
 
       <router-view></router-view>
@@ -75,9 +75,10 @@
     })
 
     var router = new VueRouter({
+      mode: 'history',
       routes: [
-        { path: '/transformers', component: Transformers },
-        { path: '/game-of-thrones', component: GameOfTrones },
+        { path: '/transformers', name: 'transformers', component: Transformers },
+        { path: '/game-of-thrones', name: 'gameOfThrones', component: GameOfTrones },
       ]
     });
 
