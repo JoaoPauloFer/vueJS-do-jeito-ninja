@@ -17,6 +17,7 @@
       <ul>
         <li><router-link :to="{ name: 'transformers' }">Transformers</router-link></li>
         <li><router-link :to="{ name: 'gameOfThrones' }">Game of Thrones</router-link></li>
+        <li><router-link :to="'/arrow'">Arrow</router-link></li>
       </ul>
 
       <router-view></router-view>
@@ -57,6 +58,13 @@
     </div>
   </template>
 
+  <template id="error404">
+    <div>
+      <h1>Página não encontrada</h1>
+      <p>Ops! Parece que está página não existe.</p>
+    </div>
+  </template>
+
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
   <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
@@ -92,22 +100,24 @@
 
   var TransformersContent = Vue.component('transformers-content', {
     template: '#transformersContent',
-    data() {
-      return {
 
-      }
-    }
   })
   
+  var error404 = Vue.component('error404', {
+    template: '#error404'
+  })
+
     var router = new VueRouter({
       mode: 'history',
       routes: [
+        { path: '/', name: 'home', redirect: { name: 'transformersContent', params: { name: 'bumble-bee'} } },
         { path: '/transformers', name: 'transformers', component: Transformers,
           children: [
-            { path: '/:name', name: 'transformersContent', component: TransformersContent }
+            { path: ':name', name: 'transformersContent', component: TransformersContent }
           ]
         },
         { path: '/game-of-thrones', name: 'gameOfThrones', component: GameOfTrones },
+        { path: '*', name: 'error404', component: error404 }
       ]
     });
 
@@ -117,13 +127,11 @@
       router,
 
       created() {
-        this.$router.push({ name: 'transformersContent', params: { name: 'bumble-bee' } });
+        // this.$router.push({ name: 'transformersContent', params: { name: 'bumble-bee' } });
       },
 
       data: {
         titulo: "Vuejs do jeito ninja",
-
-      movie: 'transformers',
       },
     });
   </script>
