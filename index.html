@@ -25,10 +25,18 @@
 
   <template id="transformers">
     <div>
-      <h4>Transformers</h4>
-      <ul>
-        <li v-for="item in transformers">{{ item.name }}</li>
-      </ul>
+      <div class="row">
+        <div class="col">
+          <h4>Transformers</h4>
+          <ul>
+            <li v-for="item in transformers"><router-link :to=" {name: 'transformersContent', params: { name: item.slug } } "> {{ item.name }} </router-link></li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <router-view> </router-view>
+        </div>
+      </div>
     </div>
   </template>
 
@@ -42,6 +50,12 @@
 
   </template>
 
+  <template id="transformersContent">
+    <div>
+      <h3>Conteúdo Transformers</h3>
+    </div>
+  </template>
+
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
   <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
@@ -52,9 +66,9 @@
       data() {
         return {
           transformers: [
-          { name: 'Optmus Prime' },
-          { name: 'Bumble Bee' },
-          { name: 'Megatron' }
+          { name: 'Optmus Prime', slug: 'optmus-prime' },
+          { name: 'Bumble Bee', slug: 'bumble-bee' },
+          { name: 'Megatron', slug: 'megatron' }
         ]
       }}
     })
@@ -74,10 +88,24 @@
 
     })
 
+
+  var TransformersContent = Vue.component('transformers-content', {
+    template: '#transformersContent',
+    data() {
+      return {
+
+      }
+    }
+  })
+  
     var router = new VueRouter({
       mode: 'history',
       routes: [
-        { path: '/transformers', name: 'transformers', component: Transformers },
+        { path: '/transformers', name: 'transformers', component: Transformers,
+          children: [
+            { path: '/:name', name: 'transformersContent', component: TransformersContent }
+          ]
+        },
         { path: '/game-of-thrones', name: 'gameOfThrones', component: GameOfTrones },
       ]
     });
