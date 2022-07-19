@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Aula 01 - Vuejs do jeito ninja!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <style>
+      .dark {
+        color: #fff;
+        background-color: #000;
+      }
+    </style>
 </head>
 <body>
   <div id="app">
@@ -26,7 +33,11 @@
 
   <template id="transformers">
     <div>
-      <div class="row">
+      <div  class="row">
+        <div class="col dark">
+          Sidebar
+        </div>
+
         <div class="col">
           <h4>Transformers</h4>
           <ul>
@@ -70,8 +81,13 @@
   <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
   <script>
   var Transformers = Vue.component('transformers', {
-      
       template: '#transformers',
+      props: {
+        sidebar: String,
+      },
+      created() {
+        console.log(this.sidebar);
+      },
       data() {
         return {
           transformers: [
@@ -110,8 +126,9 @@
     var router = new VueRouter({
       mode: 'history',
       routes: [
-        { path: '/', name: 'home', redirect: { name: 'transformersContent', params: { name: 'bumble-bee'} } },
+        { path: '/', name: 'home', },
         { path: '/transformers', name: 'transformers', component: Transformers,
+          props : { sidebar: 'dark' },
           children: [
             { path: ':name', name: 'transformersContent', component: TransformersContent }
           ]
