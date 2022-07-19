@@ -2,7 +2,7 @@
     <div class="container">
         <h1>Vue.js + Github</h1>
         <p class="lead">
-            Página qVue.js.
+            Página que lista issues de um repositório do Github, usando Vue.js.
         </p>
 
         <div class="row">
@@ -17,8 +17,6 @@
                     <input type="text" class="form-control" placeholder="github repositório">
                 </div>
             </div>
-            
-            mutmytmytmytm
 
             <div class="col-3">
                 <div class="form-group">
@@ -51,12 +49,13 @@
 </template>
 
 <script>
-export default {
-  name: 'GitHubIssues',
-  data() {
-    return {
+    export default {
+        name: 'GitHubIssues',
+
+        data() {
+            return {
+            };
+        },
+        methods: {},
     };
-  },
-  methods: {},
-};
 </script>
