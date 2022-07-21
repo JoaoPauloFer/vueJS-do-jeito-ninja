@@ -74,6 +74,12 @@
     export default {
         name: 'GitHubIssues',
 
+        created() {
+
+            this.getLocalData();
+
+        },
+
         data() {
             return {
                 username: '',
@@ -92,7 +98,8 @@
             },
 
             getIssues() {
-                if(this.username && this.repository){    
+                if(this.username && this.repository){  
+                    localStorage.setItem('gitHubIssues', JSON.stringify({ username: this.username, repository: this.repository })); 
                     this.loader.getIssues = true;
                     const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues`;
 
@@ -103,6 +110,17 @@
                     });
                 }
             },
+
+            getLocalData() {
+                
+            const localData = JSON.parse(localStorage.getItem('gitHubIssues'));
+                        console.log(localData);
+            if (localData.username && localData.repository) {
+                this.username = localData.username;
+                this.repository = localData.repository;
+                this.getIssues();
+            }
+            }
         },
     };
 </script>
